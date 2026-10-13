@@ -1,29 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($titulo ?? 'Inicio') ?></title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edubloom</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F7F4EB;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header-bordo {
+            background-color: #5A1827;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .btn-nav {
+            background-color: #722435;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-nav:hover {
+            background-color: #8A2E42;
+        }
+        .btn-logout {
+            background-color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+        .btn-logout:hover {
+            background-color: #bd2130;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .welcome-user {
+            color: #F7F4EB;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+    </style>
 </head>
-<body class="bg-light d-flex flex-column min-vh-100">
+<body>
 
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
-        <a class="navbar-brand mb-0 h1" href="<?= site_url('/') ?>">Mi tienda</a>
-        
-        <div class="d-flex align-items-center text-white">
+    <!-- ENCABEZADO BORDO -->
+    <header class="header-bordo">
+        <a href="<?= base_url('/') ?>" class="logo-section">
+            <img src="<?= base_url('images/logo.png') ?>" alt="Logo" style="height: 40px; width: 40px; border-radius: 50%;" />
+            EDUBLOOM
+        </a>
+        <div class="nav-links">
             <?php if (session()->get('isLoggedIn')): ?>
-                <span class="me-3 small">Bienvenido <?= esc(strtok(session()->get('name') ?? '', ' ')) ?>!!!</span>
-                <a href="<?= site_url('logout') ?>" class="btn btn-outline-danger btn-sm">Cerrar Sesión</a>
+                <!-- Enlaces del CRUD (Visibles solo al iniciar sesión) -->
+                <a href="<?= base_url('usuarios') ?>" class="btn-nav">Usuarios</a>
+                <a href="<?= base_url('cursos') ?>" class="btn-nav">Cursos</a>
+                
+                <!-- Mensaje de bienvenida y botón de salida -->
+                <span class="welcome-user">Hola, <?= esc(strtok(session()->get('nombre') ?? '', ' ')) ?>!</span>
+                <a href="<?= base_url('logout') ?>" class="btn-nav btn-logout">Salir</a>
             <?php else: ?>
-                <a href="<?= site_url('login') ?>" class="btn btn-outline-light btn-sm me-2">Ingresar</a>
-                <a href="<?= site_url('register') ?>" class="btn btn-primary btn-sm">Registrarse</a>
+                <!-- Botones públicos -->
+                <a href="<?= base_url('register') ?>" class="btn-nav">Registrarte</a>
+                <a href="<?= base_url('login') ?>" class="btn-nav">Ingresar</a>
             <?php endif; ?>
         </div>
-    </div>
-</nav>
+    </header>
 
-<div class="container flex-grow-1">
+    <!-- Inicio del contenedor principal -->
+    <main class="main-content">

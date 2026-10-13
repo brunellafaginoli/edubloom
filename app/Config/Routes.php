@@ -24,3 +24,11 @@ $routes->post('/login', 'Auth::processLogin');
 
 // 1.5 Cerrar sesión
 $routes->get('/logout', 'Auth::logout');
+
+$routes->get('/cursos', 'Cursos::index');
+$routes->get('/cursos/crear', 'Cursos::crear');
+$routes->post('/cursos/guardar', 'Cursos::guardar');
+$routes->get('/cursos/editar/(:num)', 'Cursos::editar/$1');
+$routes->post('/cursos/actualizar/(:num)', 'Cursos::actualizar/$1');
+$routes->get('/cursos/eliminar/(:num)', 'Cursos::eliminar/$1');
+
